@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% \usepackage	{bibtex}
+
+\usepackage{blindtext}
+\usepackage{amssymb}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsmath}
+\input{annotations}
+
+%\newtheorem{theorem}{Theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\title{DP-ML Proofs}
+% \author{}
+% \date{}
+
+
+\renewcommand\qedsymbol{$\blacksquare$}
+% \input{annotations}
+
+
+\begin{document}
+
+
+\maketitle
+
+% To leave comments, use the following commands
+% Ivan => \iv{This is a sample comment}
+% Mathias => \ml{This is a sample comment}
+% Shayan => \sh{This is a sample comment}
+
+
+\section{Privacy Loss when adding $\epsilon_{1} + \epsilon_{2}$ noise}
+
+Let:
+
+$A(x) => (\epsilon_{1}, \delta)$ differentially private mechanism by adding noise from $N(0, \sigma_{1}^{2})$
+$B(x) => (\epsilon_{2}, \delta)$ differentially private mechanism by adding noise from $N(0, \sigma_{2}^{2})$
+
+\begin{theorem}
+If C(x) is a dp-mechanism that adds the sum of noise sampled from $N(0, \sigma_{1}^{2})$ and $N(0, \sigma_{2}^{2})$, then C(x) is $\sqrt(\frac{\epsilon_{1}^{2}*\epsilon_{2}^{2}}{\epsilon_{1}^{2} + \epsilon_{2}^{2}})$ differentially private.
+
+\end{theorem}
+
+\begin{proof}
+
+We know that the sum of two normal distributed random variable is also normal $=> N(0, \sigma_{1}^{2}) + N(0, \sigma_{2}^{2}) = N(0, \sigma_{1}^{2} + \sigma_{2}^{2})$	
+
+Therefore, summing up noise from two randomly distributed variables  is equivalent to sampling noise from $N(0, \sigma_{1}^{2} + \sigma_{2}^{2} = \sigma_{3}^{2})$  	
+
+From \cite{Dwork:2014} it follows that, if $\sigma$ is equivalent to
+
+\begin{align*}
+	\frac{s}{\epsilon}\sqrt(2ln\frac{1.25}{\delta})
+\end{align*}
+
+then a step is $(\epsilon,\delta)$ differentially private.
+
+We know:
+	
+\begin{gather*}
+	\sigma_{3}^{2} = \sigma_{1}^{2} + \sigma_{2}^{2}\\ 
+	\sigma_{3}^{2} = \frac{s^{2}}{\epsilon_1^{2}}(2ln\frac{1.25}{\delta}) + \frac{s^{2}}{\epsilon_1^{2}}(2ln\frac{1.25}{\delta}) \\
+	\sigma_{3}^{2} = (2ln\frac{1.25}{\delta})(\frac{s^{2}}{\epsilon_{1}^{2}} + \frac{s^{2}}{\epsilon_{1}^{2}})\\ 
+	\frac{s^{2}}{\epsilon_{3}^{2}}(2ln\frac{1.25}{\delta}) = (2ln\frac{1.25}{\delta})(\frac{s^{2}}{\epsilon_{1}^{2}} + \frac{s^{2}}{\epsilon_{2}^{2}})\\
+	\frac{s^{2}}{\epsilon_{3}^{2}}(2ln\frac{1.25}{\delta}) = (2ln\frac{1.25}{\delta})(\frac{s^{2}}{\epsilon_{1}^{2}} + \frac{s^{2}}{\epsilon_{2}^{2}})\\ 
+	\frac{s^{2}}{\epsilon_{3}^{2}}(2ln\frac{1.25}{\delta}) = (2ln\frac{1.25}{\delta})(\frac{s^{2}}{\epsilon_{1}^{2}} + \frac{s^{2}}{\epsilon_{2}^{2}})\\ 	
+\end{gather*}
+
+\begin{gather*}
+	\frac{1}{\epsilon_{3}^{2}} = \frac{1}{\epsilon_{1}^{2}} + \frac{1}{\epsilon_{2}^{2}}\\
+	\frac{1}{\epsilon_{3}^{2}} = \frac{\epsilon_{1}^{2} + \epsilon_{2}^{2}}{\epsilon_{1}^{2} * \epsilon_{2}^{2}}\\
+	\epsilon_{3}^{2} = \frac{\epsilon_{1}^{2} * \epsilon_{2}^{2}}{\epsilon_{1}^{2} + \epsilon_{2}^{2}}\\
+	\epsilon_{3} = \sqrt(\frac{\epsilon_{1}^{2} * \epsilon_{2}^{2}}{\epsilon_{1}^{2} + \epsilon_{2}^{2}})
+\end{gather*}
+
+\end{proof}
+
+Here are a few examples for the resulting epsilon value  when you add two noise vectors each satisfying $(\epsilon_{1},\delta)$ and $(\epsilon_{2},\delta)$ respectively:
+
+	\begin{center}
+	 \begin{tabular}{||c c c||} 
+	 \hline
+	 $\epsilon_{1}$ & $\epsilon_{2}$ & $\epsilon_{3}$ \\  
+	 \hline\hline
+	 0.5 & 0.75 & 0.416 \\
+	 \hline
+	 1.0 & 0.5 & 0.447 \\
+	 \hline
+	 2.0 & 1.0 & 0.894 \\
+	 \hline
+	 2.0 & 0.5 & 0.485 \\
+	\end{tabular}
+	\end{center}
+
+\sh{Not sure if the above result can be used for $\epsilon > 1$ values since $\frac{s}{\epsilon}\sqrt(2ln\frac{1.25}{\delta})$ might only applicable for cases where both $\epsilon_{1} < 1$ and $\epsilon_{2} < 1$ \cite{Dwork:2014}}
+
+\section{Next Steps/TODOs}
+
+Here are some potential next steps/proofs for designing a private Federated Learning system with an untrusted aggregator:
+
+ 
+1. \emph{How much privacy gain do you get when only observing only the noisy aggregate compared to observing all the individual updates?}
+
+	Some Ideas $=>$ From the secure aggregation paper (Appendix A) ~\cite{Bonawitz:2017}, we know that we can get the same $\epsilon$- guarantee with secure aggregation by sampling from $N(0,\sigma/\sqrt(n))$ compared to sampling from $N(0,\sigma)$ with no secure aggregation.
+
+	By using the same argument, if A(x) satisfies $(\epsilon,\delta)$- differential privacy when the adversary observes each update  protected by noise sampled from $N(0, \sigma)$, then with the adversary observing only the aggregate of the noisy updates, it becomes equivalent to $(\epsilon,\delta)$ guarantee by sampling from $N(0, \sigma*\sqrt(n))$ . \sh{??}
+
+	However, a key assumption to get the gain above would be a shift to computational differential privacy~\cite{Mironov:2009}. Not sure currently that if we make this assumption how it would affect privacy calculations? 
+
+	\sh{With computation differential privacy can I still use $\frac{s}{\epsilon}\sqrt(2ln\frac{1.25}{\delta})$to get $(\epsilon,\delta)$ differential privacy here?}
+
+2. \emph{How would the privacy loss compose over N rounds such that an adversary observes the individual dp-updates in m out of N rounds and the aggregate in others?}  
+
+	Would it be possible to use one composition theorem out of the box for this?
+
+	Some potential compositions that can be used:
+	\begin{enumerate}
+		\item Advanced composition theorem ~\cite{Vadhan:2017} $=>O(\sqrt(klog(\frac{1}{\delta'})).\epsilon, k*\delta + \delta')$ $(k < 1/\epsilon^{2})$
+		\item Moments Accountant ~\cite{Abadi:2016} $=>$ $O(q*\epsilon*sqrt(T))$ 
+		\item Amplification by sampling $O(q*\epsilon, q*\delta)$ ~\cite{Abadi:2016} 
+
+	\end{enumerate}
+
+{\footnotesize \bibliographystyle{acm}
+\bibliography{dp-ml-proofs}}
+
+\end{document}
