@@ -10,5 +10,5 @@ The ideas/design doc for provate/poisoning resilient FL is available at this lin
 
 https://docs.google.com/document/d/1sKukkULnEalzEZCFtzQF7GU7ayfNXUIhsLndpclR6B4/edit?usp=sharing
 
-Feel free to leave comments in the doc/in the latex document!
+Feel free to leave comments in the doc/latex!
 
