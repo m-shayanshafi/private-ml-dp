@@ -107,32 +107,42 @@ Here are a few examples for the resulting epsilon value  when you add two noise 
 
 \sh{Not sure if the above result can be used for $\epsilon > 1$ values since $\frac{s}{\epsilon}\sqrt(2ln\frac{1.25}{\delta})$ might only applicable for cases where both $\epsilon_{1} < 1$ and $\epsilon_{2} < 1$ \cite{Dwork:2014}}
 
-\section{Next Steps/TODOs}
+\input{secureagg}
 
-Here are some potential next steps/proofs for designing a private Federated Learning system with an untrusted aggregator:
+\input{composition}
+
+\section{Next Steps/TODOs}
+\begin{enumerate}
+	\item{I am thinking of coming up with a design that is close to the Encode/Shuffle/Analyze~\cite{Bittau:2017} architecture here. It seems to strike a balance between the local/global dp utility tradeoff that we are trying to optimize. The idea is to have a shuffler service as an intermediary, that minimizes the data points exposed to the coordinator/analyzer. The hard part would is that the shuffler shouldn't be able to look at the data points but should be able to group them together into say malicious/non malicious using some metadata. There is prior work on similarity preserving hashes that could come in handy here to allow the shuffler to do that. }
+	\item{I also want to figure out a theoretical upper bound for the std dev of the noise that can be added to KRUM without breaking the guarantee. I will have to revisit proofs for Multi-KRUM.}
+	\item{Keep thinking if there is a tighter bound for the above mechanism.}
+\end{enumerate}
+
+
+% Here are some potential next steps/proofs for designing a private Federated Learning system with an untrusted aggregator:
 
  
-1. \emph{How much privacy gain do you get when only observing only the noisy aggregate compared to observing all the individual updates?}
+% 1. \emph{How much privacy gain do you get when only observing only the noisy aggregate compared to observing all the individual updates?}
 
-	Some Ideas $=>$ From the secure aggregation paper (Appendix A) ~\cite{Bonawitz:2017}, we know that we can get the same $\epsilon$- guarantee with secure aggregation by sampling from $N(0,\sigma/\sqrt(n))$ compared to sampling from $N(0,\sigma)$ with no secure aggregation.
+% 	Some Ideas $=>$ From the secure aggregation paper (Appendix A) ~\cite{Bonawitz:2017}, we know that we can get the same $\epsilon$- guarantee with secure aggregation by sampling from $N(0,\sigma/\sqrt(n))$ compared to sampling from $N(0,\sigma)$ with no secure aggregation.
 
-	By using the same argument, if A(x) satisfies $(\epsilon,\delta)$- differential privacy when the adversary observes each update  protected by noise sampled from $N(0, \sigma)$, then with the adversary observing only the aggregate of the noisy updates, it becomes equivalent to $(\epsilon,\delta)$ guarantee by sampling from $N(0, \sigma*\sqrt(n))$ . \sh{??}
+% 	By using the same argument, if A(x) satisfies $(\epsilon,\delta)$- differential privacy when the adversary observes each update  protected by noise sampled from $N(0, \sigma)$, then with the adversary observing only the aggregate of the noisy updates, it becomes equivalent to $(\epsilon,\delta)$ guarantee by sampling from $N(0, \sigma*\sqrt(n))$ . \sh{??}
 
-	However, a key assumption to get the gain above would be a shift to computational differential privacy~\cite{Mironov:2009}. Not sure currently that if we make this assumption how it would affect privacy calculations? 
+% 	However, a key assumption to get the gain above would be a shift to computational differential privacy~\cite{Mironov:2009}. Not sure currently that if we make this assumption how it would affect privacy calculations? 
 
-	\sh{With computation differential privacy can I still use $\frac{s}{\epsilon}\sqrt(2ln\frac{1.25}{\delta})$to get $(\epsilon,\delta)$ differential privacy here?}
+% 	\sh{With computation differential privacy can I still use $\frac{s}{\epsilon}\sqrt(2ln\frac{1.25}{\delta})$to get $(\epsilon,\delta)$ differential privacy here?}
 
-2. \emph{How would the privacy loss compose over N rounds such that an adversary observes the individual dp-updates in m out of N rounds and the aggregate in others?}  
+% 2. \emph{How would the privacy loss compose over N rounds such that an adversary observes the individual dp-updates in m out of N rounds and the aggregate in others?}  
 
-	Would it be possible to use one composition theorem out of the box for this?
+% 	Would it be possible to use one composition theorem out of the box for this?
 
-	Some potential compositions that can be used:
-	\begin{enumerate}
-		\item Advanced composition theorem ~\cite{Vadhan:2017} $=>O(\sqrt(klog(\frac{1}{\delta'})).\epsilon, k*\delta + \delta')$ $(k < 1/\epsilon^{2})$
-		\item Moments Accountant ~\cite{Abadi:2016} $=>$ $O(q*\epsilon*sqrt(T))$ 
-		\item Amplification by sampling $O(q*\epsilon, q*\delta)$ ~\cite{Abadi:2016} 
+% 	Some potential compositions that can be used:
+% 	\begin{enumerate}
+% 		\item Advanced composition theorem ~\cite{Vadhan:2017} $=>O(\sqrt(klog(\frac{1}{\delta'})).\epsilon, k*\delta + \delta')$ $(k < 1/\epsilon^{2})$
+% 		\item Moments Accountant ~\cite{Abadi:2016} $=>$ $O(q*\epsilon*sqrt(T))$ 
+% 		\item Amplification by sampling $O(q*\epsilon, q*\delta)$ ~\cite{Abadi:2016} 
 
-	\end{enumerate}
+% 	\end{enumerate}
 
 {\footnotesize \bibliographystyle{acm}
 \bibliography{dp-ml-proofs}}

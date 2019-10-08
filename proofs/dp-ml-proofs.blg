@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: dp-ml-proofs.aux
 The style file: acm.bst
 Database file #1: dp-ml-proofs.bib
-You've used 5 entries,
+You've used 2 entries,
             2253 wiz_defined-function locations,
-            559 strings with 4988 characters,
-and the built_in function-call counts, 1763 in all, are:
-= -- 138
-> -- 125
+            541 strings with 4384 characters,
+and the built_in function-call counts, 943 in all, are:
+= -- 81
+> -- 64
 < -- 0
-+ -- 52
-- -- 46
-* -- 145
-:= -- 304
-add.period$ -- 15
-call.type$ -- 5
-change.case$ -- 38
++ -- 26
+- -- 24
+* -- 80
+:= -- 157
+add.period$ -- 6
+call.type$ -- 2
+change.case$ -- 18
 chr.to.int$ -- 0
-cite$ -- 5
-duplicate$ -- 73
-empty$ -- 136
-format.name$ -- 46
-if$ -- 348
+cite$ -- 2
+duplicate$ -- 33
+empty$ -- 62
+format.name$ -- 24
+if$ -- 193
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 5
-newline$ -- 28
-num.names$ -- 10
-pop$ -- 51
+int.to.str$ -- 2
+missing$ -- 2
+newline$ -- 13
+num.names$ -- 4
+pop$ -- 21
 preamble$ -- 1
-purify$ -- 33
+purify$ -- 16
 quote$ -- 0
-skip$ -- 32
+skip$ -- 24
 stack$ -- 0
-substring$ -- 26
-swap$ -- 10
+substring$ -- 38
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 20
+type$ -- 8
 warning$ -- 0
-while$ -- 10
-width$ -- 6
-write$ -- 50
+while$ -- 6
+width$ -- 3
+write$ -- 21

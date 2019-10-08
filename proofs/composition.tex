@@ -1,0 +1,64 @@
+\section{Privacy guarantee when sampling from with/without secure aggregation}
+
+Let:
+
+$A(x) => (\epsilon_{1}, \delta)$ differentially private mechanism  by adding noise from $N(0, \sigma_{1}^{2})$
+$B(x) => (\epsilon_{2}, \delta)$ differentially private mechanism via secure aggregation by adding noise from $N(0, \sigma_{2}^{2}*\sqrt{n})$ where $\epsilon_{2} = \epsilon_{1}/sqrt(n)$ 
+
+The goal is to find the $(\epsilon_{3},\delta)$ guarantee of a mechanism $C(x)$ that is $(\epsilon_{1},\delta)$ differentially private with probability p and $(\epsilon_{3},\delta)$ differentially private with probability (1-p).
+
+We need to bound the ratio:
+
+\begin{gather*}
+\frac{P[C(x) \in S] - \delta}{P[C'(x') \in S]}\\
+\frac{p*P[A(x) \in S] + (1-p)*P[B(x) \in S] - \delta}{p*P[A(x') \in S] + (1-p)*P[B(x') \in S]}\\
+\end{gather*}
+
+Let:
+
+$A = P[A(x) \in S]$\\
+$B = P[B(x) \in S]$\\
+$A' = P[A(x') \in S]$\\
+$B' = P[B(x') \in S]$\\
+
+\begin{gather*}
+\frac{p*A + (1-p)*B - \delta}{p*A' + (1-p)*B'}\\
+=\frac{p*A + (1-p)*B - (p*\delta + (1-p)*\delta)}{p*A' + (1-p)*B'}\\
+=\frac{p*(A - \delta) + (1-p)*(B - \delta)}{p*A' + (1-p)*B'}\\
+=\frac{p*(A - \delta) + (1-p)*(B - \delta)}{p*A' + (1-p)*B'}\\
+=\frac{p*(A - \delta)}{p*A' + (1-p)*B'} + \frac{(1-p)*(B - \delta)}{p*A' + (1-p)*B'}\\
+=\frac{p*(A - \delta)}{p*A'}*\frac{1}{1+\frac{(1-p)B'}{p(A')}} + \frac{(1-p)*(B - \delta)}{(1-p)*B'}*\frac{1}{1+\frac{p*A'}{(1-p)(B')}}\\
+=e^{\epsilon_{1}}*\frac{p(A')}{(1-p)B'+p(A')} + e^{\frac{\epsilon_{1}}{sqrt(n)}}*\frac{(1-p)B'}{p(A') + (1-p)(B')}\\
+=e^{\epsilon_{1}}*\frac{p(A')}{(1-p)B'+p(A')} + e^{\frac{\epsilon_{1}}{sqrt(n)}}*\frac{(1-p)B'}{p(A') + (1-p)(B')}\\
+\end{gather*}
+
+Need to express numerator in the following form:
+
+\begin{gather*}
+e^{x}({p(A') + (1-p)(B')})
+\end{gather*}
+
+where x is the epsilon-guarantee of combining two epsilons.
+
+\subsection{No assumption about A' and B'}
+\begin{gather*}
+<=\frac{e^{\epsilon_{1}}({p(A') + (1-p)(B'))}}{p(A') + (1-p)(B')} 
+\end{gather*}
+Guarantee = ($\epsilon_{1}, \delta$)
+
+\subsection{A' = B'}
+\begin{gather*}
+<=\frac{e^{\epsilon_{1}}*p*A' + e^{\frac{\epsilon_{1}}{\sqrt(n)}}*(1-p)(A')}{p(A') + (1-p)(A')}\\
+<=\frac{A'*(e^{\epsilon_{1}}*p + e^{\frac{\epsilon_{1}}{\sqrt(n)}}*(1-p))}{A'}\\
+<=(e^{\epsilon_{1}}*p + e^{\frac{\epsilon_{1}}{\sqrt(n)}}*(1-p))\\
+<=e^{\epsilon_{1} + ln(p)} + e^{\frac{\epsilon_{1}}{\sqrt(n)}+ln(1-p)}\\
+<=e^{\epsilon_{1} + ln(p) + \frac{\epsilon_{1}}{\sqrt(n)} + ln(1-p)} 
+\end{gather*}
+bcoz $e^x + e^y <= e^{x+y}$ where $x>=0$ and $y >=0$
+
+Hence above bound valid only if $\frac{\epsilon_{1}}{\sqrt(n)} + ln(1-p) > 0$ and $\epsilon_{1} + ln(p) > 0$\\
+
+% + e^{\frac{\epsilon_{1}}{\sqrt(n)}+ln(1-p)}})
+% Guarantee = ($\epsilon_{1}, \delta$) if 
+% <=(e^{\frac{\epsilon_{1} + ln(p)}} + e^{\frac{\epsilon_{1}}{\sqrt(n)+ln(1-p)}})
+% <=(e^{\frac{\epsilon_{1} + ln(p)}} + e^{\frac{\epsilon_{1}}{\sqrt(n)+ln(1-p)}})

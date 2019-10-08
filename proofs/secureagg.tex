@@ -1,0 +1,28 @@
+\section{Privacy guarantee for secure aggregation}
+
+\begin{theorem}
+If S(x) is a dp-mechanism that uses a cryptographic protocol to securely-aggregate the output of n (A(x)) mechanisms each satisfying $(\epsilon,\delta)$-dp, then C(x) is $\frac{\epsilon}{\sqrt(n)}$ private.
+\end{theorem}
+
+Let $A(x) => (\epsilon, \delta)$ differentially private mechanism  by adding noise from $N(0, \sigma_{a}^{2})$
+
+Let $S(x)$ be $(\epsilon_s,\delta)$ differentially private by sampling noise from $N(0, \sigma_{s})$
+
+\begin{proof}
+Since $S(x) = \sum_{n}(A(x))$:
+
+\begin{gather*}
+\sigma_{s}^{2} = n*\sigma_{a}^{2}\\
+\frac{s^{2}}{\epsilon_s^{2}}(2ln\frac{1.25}{\delta}) = \frac{s^{2}}{\epsilon_a^{2}}(2ln\frac{1.25}{\delta}) * n \\
+\frac{1}{\epsilon_s^{2}} = \frac{n}{\epsilon_a^{2}} \\
+\epsilon_s^{2} = \frac{\epsilon_a^{2}}{n} \\
+\epsilon_s = \frac{\epsilon_a}{sqrt(n)} \\
+\end{gather*}
+
+\end{proof}
+
+
+
+
+
+

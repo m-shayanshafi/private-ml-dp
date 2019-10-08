@@ -1,34 +1,16 @@
 \begin{thebibliography}{1}
 
-\bibitem{Abadi:2016}
-{\sc Abadi, M., Chu, A., Goodfellow, I., McMahan, B., Mironov, I., Talwar, K.,
-  and Zhang, L.}
-\newblock Deep learning with differential privacy.
-\newblock In {\em 23rd ACM Conference on Computer and Communications
-  Security\/} (2016), CCS.
-
-\bibitem{Bonawitz:2017}
-{\sc Bonawitz, K., Ivanov, V., Kreuter, B., Marcedone, A., McMahan, H.~B.,
-  Patel, S., Ramage, D., Segal, A., and Seth, K.}
-\newblock Practical secure aggregation for privacy-preserving machine learning.
-\newblock In {\em Proceedings of the 2017 ACM SIGSAC Conference on Computer and
-  Communications Security\/} (2017), CCS.
+\bibitem{Bittau:2017}
+{\sc Bittau, A., Úlfar Erlingsson, Maniatis, P., Mironov, I., Raghunathan, A.,
+  Lie, D., Rudominer, M., Kode, U., Tinnes, J., and Seefeld, B.}
+\newblock Prochlo: Strong privacy for analytics in the crowd.
+\newblock In {\em Proceedings of the Symposium on Operating Systems Principles
+  (SOSP)\/} (2017), pp.~441--459.
 
 \bibitem{Dwork:2014}
 {\sc Dwork, C., and Roth, A.}
 \newblock {The Algorithmic Foundations of Differential Privacy}.
 \newblock {\em Foundations and Trends in Theoretical Computer Science 9}, 3-4
   (2014).
-
-\bibitem{Mironov:2009}
-{\sc Mironov, I., Pandey, O., Reingold, O., and Vadhan, S.}
-\newblock Computational differential privacy.
-\newblock In {\em Proceedings of the 29th Annual International Cryptology
-  Conference on Advances in Cryptology\/} (2009), CRYPTO '09.
-
-\bibitem{Vadhan:2017}
-{\sc Vadhan, S.~P.}
-\newblock The complexity of differential privacy.
-\newblock In {\em Tutorials on the Foundations of Cryptography\/} (2017).
 
 \end{thebibliography}
